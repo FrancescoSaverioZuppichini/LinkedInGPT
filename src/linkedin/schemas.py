@@ -1,4 +1,4 @@
-from typing import TypedDict, List, Dict, Tuple, Optional
+from typing import Dict, List, Optional, Tuple, TypedDict
 
 
 class ProfilePicture(TypedDict):
