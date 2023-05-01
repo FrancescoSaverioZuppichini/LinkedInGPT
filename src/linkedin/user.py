@@ -56,16 +56,17 @@ class User:
         author = f"urn:li:person:{self._me['id']}"
         media: List[Media] = []
 
-        for image_path, image_description in images:
-            asset_id = self._register_and_upload_image(image_path)
-            media.append(
-                Media(
-                    status="READY",
-                    description=Description(text=image_description),
-                    media=asset_id,
-                    title=Title(text="Image Title"),
+        if images is not None:
+            for image_path, image_description in images:
+                asset_id = self._register_and_upload_image(image_path)
+                media.append(
+                    Media(
+                        status="READY",
+                        description=Description(text=image_description),
+                        media=asset_id,
+                        title=Title(text="Image Title"),
+                    )
                 )
-            )
         create_post_body = {
             "author": author,
             "lifecycleState": "PUBLISHED",
