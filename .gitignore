@@ -1,3 +1,8 @@
+
+# sqlite
+*.db 
+test.py 
+playground.py
 # env stuff
 .env
 # Byte-compiled / optimized / DLL files

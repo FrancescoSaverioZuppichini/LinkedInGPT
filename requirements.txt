@@ -1,5 +1,5 @@
 rich
 python-dotenv
-faiss-gpu
 beautifulsoup4
 langchain
+linkedin-python

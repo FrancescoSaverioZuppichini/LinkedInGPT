@@ -6,17 +6,17 @@ load_dotenv()
 
 
 from pathlib import Path
+
 from langchain.agents import Tool
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
-
-from logger import logger
+from rich import print
 
 from db import insert_post
-from tools.papers import get_a_trending_paper_for_a_post
-from tools.linkedIn import write_linkedin_post
 from linkedin.user import User
-from rich import print
+from logger import logger
+from tools.linkedIn import write_linkedin_post
+from tools.papers import get_a_trending_paper_for_a_post
 
 user = User()
 
@@ -24,8 +24,8 @@ memory = ConversationBufferWindowMemory(
     memory_key="chat_history", k=5, return_messages=True
 )
 
-from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
 
 prompt = PromptTemplate(
     input_variables=["paper", "bot_name"],
@@ -38,7 +38,7 @@ paper = get_a_trending_paper_for_a_post(only_from_db=True)
 
 chain = LLMChain(llm=llm, prompt=prompt)
 
-content = chain.run({ "paper" : json.dumps(paper), "bot_name": "Leonardo" })
+content = chain.run({"paper": json.dumps(paper), "bot_name": "Leonardo"})
 print(paper)
 print(content)
 

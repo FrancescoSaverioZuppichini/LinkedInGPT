@@ -1,17 +1,16 @@
-
-from typing import List, Dict
+from random import choice
+from typing import Dict, List
 
 import requests
 from bs4 import BeautifulSoup
-import json
-from random import choice
-from db import Paper
-from db import insert_paper, get_all_papers_without_a_post, init_db
-from logger import logger
+
+from src.logger import logger
+from src.types import Content
+
 
 def get_paper_info_from_papers_with_code(uid: str, *args, **kwargs) -> Dict:
     """
-    Fetching the paper little summary page on papers with code, e.g. 
+    Fetching the paper little summary page on papers with code, e.g.
     https://paperswithcode.com/paper/track-anything-segment-anything-meets-videos
 
     This function returns a dictionary with `abtract` and `arxiv_link`.
@@ -35,10 +34,11 @@ def get_paper_info_from_papers_with_code(uid: str, *args, **kwargs) -> Dict:
 
     return result
 
-def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Paper]:
+
+def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Content]:
     logger.info("Getting papers from https://paperswithcode.com/")
     response = requests.get("https://paperswithcode.com/")
-    results = []
+    results: List[Content] = []
     if response.status_code == 200:
         soup = BeautifulSoup(response.content, "html.parser")
         for row in soup.select(
@@ -63,20 +63,20 @@ def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Paper]:
                 "uid": row.select_one("h1 a")["href"],
             }
             paper_dict = paper_dict
-            results.append({**paper_dict, **get_paper_info_from_papers_with_code(paper_dict["uid"])})
+            results.append(
+                Content(
+                    paper_dict["uid"],
+                    data={
+                        **paper_dict,
+                        **get_paper_info_from_papers_with_code(paper_dict["uid"]),
+                    },
+                )
+            )
         else:
             logger.warning("Was not able to scrape the html for one row.")
     else:
-        logger.warning(f"Failed to fetch the webpage. Status code: {response.status_code}.")
+        logger.warning(
+            f"Failed to fetch the webpage. Status code: {response.status_code}."
+        )
 
     return results
-
-
-def get_a_trending_paper_for_a_post(only_from_db: bool = False) -> Paper:
-    conn = init_db()
-    if not only_from_db:
-        papers = get_latest_papers_from_papers_with_code(conn)
-        logger.debug(json.dumps(papers, indent=4))
-        [insert_paper(conn, paper) for paper in papers]
-    papers_without_a_post = get_all_papers_without_a_post(conn)
-    return choice(papers_without_a_post)

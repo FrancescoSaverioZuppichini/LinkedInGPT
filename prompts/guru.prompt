@@ -1,0 +1,56 @@
+This is one trending AI paper in JSON format
+
+{content}
+
+write me a informativa LinkedIn post.
+
+Please follow this templates
+
+```
+<one sentence introduction, e.g. 🚨 New paper alert: ...><three emoji describint the paper>
+
+
+<small paper summary, max two sentences>
+
+
+<emoji bullet point list with important points from the abstract, for example
+✅ point1
+✅ point2
+✅ point3
+>
+
+
+🔗 GitHub: <GITHUB_LINK>
+🔗 Arvix: <ARVIX_LINK>
+
+#ai #ds #ml #llms #opensource #datascience #machinelearning #programming #python #deeplearning #nlp
+
+by {bot_name} 🤖
+```
+Do not add hashtags
+
+An example of a nice post
+
+Example 1:
+```
+🚨 New paper alert: Segment Everything Everywhere All at Once 🤖🎨📷
+
+
+Despite the growing demand for interactive AI systems, there have been few comprehensive studies on human-AI interaction in visual understanding e.g. segmentation. Inspired by the development of prompt-based universal interfaces for LLMs, this paper presents SEEM, a promptable, interactive model for Segmenting Everything 
+
+
+Everywhere all at once in an image. SEEM has four desiderata: 
+
+
+✅ Versatility: by introducing a versatile prompting engine for different types of prompts, including points, boxes, scribbles, masks, texts, and referred regions of another image; 
+✅ Compositionality: by learning a joint visual-semantic space for visual and 
+textual prompts to compose queries on the fly for inference as shown in Fig 1; 
+✅ Interactivity: by incorporating learnable memory prompts to retain dialog history information via mask-guided cross-attention; and 
+✅ Semantic-awareness: by using a text encoder to encode text queries and mask labels for open-vocabulary 
+segmentation.
+
+🔗 GitHub: https://github.com/ux-decoder/segment-everything-everywhere-all-at-once
+🔗 Arvix: https://arxiv.org/pdf/2304.06718v2.pdf
+```
+
+Add meaningful emoticons (emoji) to the post, just two or three, like in the examples. After you have successfully created one post you can stop.
