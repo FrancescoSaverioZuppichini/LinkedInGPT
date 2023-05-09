@@ -72,10 +72,11 @@ def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Paper]:
     return results
 
 
-def get_a_trending_paper_for_a_post() -> Paper:
+def get_a_trending_paper_for_a_post(only_from_db: bool = False) -> Paper:
     conn = init_db()
-    papers = get_latest_papers_from_papers_with_code(conn)
-    logger.debug(json.dumps(papers, indent=4))
-    [insert_paper(conn, paper) for paper in papers]
+    if not only_from_db:
+        papers = get_latest_papers_from_papers_with_code(conn)
+        logger.debug(json.dumps(papers, indent=4))
+        [insert_paper(conn, paper) for paper in papers]
     papers_without_a_post = get_all_papers_without_a_post(conn)
     return choice(papers_without_a_post)

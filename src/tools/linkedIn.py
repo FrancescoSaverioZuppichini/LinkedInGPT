@@ -9,8 +9,7 @@ def write_linkedin_post(user: User, content: str, media_url: str):
     with open(file_path, "wb") as f:
         f.write(requests.get(media_url).content)
     user.create_post(
-        content
-        + "\n#opensource #llms #datascience #machinelearning #programming #ai #ds #python #deeplearning #nlp",
+        content,
         [(file_path, "media")],
     )
     return "Post created! Good job!"

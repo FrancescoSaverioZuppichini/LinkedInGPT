@@ -16,6 +16,7 @@ from db import insert_post
 from tools.papers import get_a_trending_paper_for_a_post
 from tools.linkedIn import write_linkedin_post
 from linkedin.user import User
+from rich import print
 
 user = User()
 
@@ -27,16 +28,21 @@ from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 
 prompt = PromptTemplate(
-    input_variables=["paper"],
+    input_variables=["paper", "bot_name"],
     template=Path("prompts/bot.prompt").read_text(),
 )
 
 llm = ChatOpenAI(temperature=0)
 
-paper = get_a_trending_paper_for_a_post()
+paper = get_a_trending_paper_for_a_post(only_from_db=True)
 
 chain = LLMChain(llm=llm, prompt=prompt)
 
-content = chain.run(json.dumps(paper))
+content = chain.run({ "paper" : json.dumps(paper), "bot_name": "Leonardo" })
 print(paper)
 print(content)
+
+confirmation = input("Proceed? [y/n]:")
+if confirmation == "y":
+    print("Writing...")
+    write_linkedin_post(user, content, media_url=paper["media"])
