@@ -17,7 +17,7 @@ cd LinkedInGPT
 pip install -r requirements.txt
 ```
 
-### Env Variables
+#### Env Variables
 
 Be sure to export the following variables, you can place them in a `.env` file
 
@@ -27,15 +27,21 @@ LINKEDIN_TOKEN=<YOUR_LINKEDIN_TOKEN>
 OPENAI_API_KEY=<YOUR_OPENAI_API_KEY>
 ```
 
-**To obtain an `LINKEDIN_TOKEN` check out [`linkedin-python`](https://github.com/FrancescoSaverioZuppichini/linkedin_python#obtain-a-token)
+**To obtain a `LINKEDIN_TOKEN` check out [`linkedin-python`](https://github.com/FrancescoSaverioZuppichini/linkedin_python#obtain-a-token)**
 
-## Be a Gurus 
+## Be a Guru 
 
 So far, we have the following gurus
 
 ### LinkedIn AI giga chad 🗿
 
-Running `python gurus/linkedin_ai.py` will create an automatic post with one of the trending papers from [papers with code](https://paperswithcode.com/). This is one example output
+Run 
+
+```bash
+python gurus/linkedin_ai.py
+```
+
+This will create an automatic post with one of the trending papers from [papers with code](https://paperswithcode.com/). This is one example output
 
 ![alt](docs/media/guru_ai_output_example.png)
 
