@@ -14,8 +14,8 @@ class PostOnLinkedInAction(Action):
         self.user = User()
 
     def __call__(self, content: GeneratedContent):
-        if content.medial_url is not None:
-            media_url = content.medial_url
+        if content.media_url is not None:
+            media_url = content.media_url
             file_path = f"media.{Path(media_url).suffix}"
             with open(file_path, "wb") as f:
                 f.write(requests.get(media_url).content)

@@ -47,7 +47,8 @@ class Guru:
         if self.confirmation(self.run):
             logger.info(f"Running action {self.action}")
             # [TODO] here I know in my setup what 'media' will be inside content because I will get it from paperswithcode
-            generated_content = GeneratedContent(generated_text, medial_url=content.data['media'])
+            generated_content = GeneratedContent(generated_text, media_url=content.data['media'])
             self.action(generated_content)
+            content.created = True
             self.storage.update(content)
             logger.info("Done!")

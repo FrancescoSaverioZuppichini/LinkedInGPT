@@ -12,4 +12,4 @@ class Content:
 @dataclass
 class GeneratedContent:
     text: str
-    medial_url: Optional[str] = None
+    media_url: Optional[str] = None
