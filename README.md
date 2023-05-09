@@ -1,4 +1,5 @@
 # LinkedIn GPT 💙🤖
+![alt](docs/media/header.png)
 > **Warning**
 > I am using `python3.10`
 
@@ -58,7 +59,7 @@ In a nutshell a Guru needs to be able to do
 - generate the post
 - post it
 
-The code for the LinkedIn guru loooks like 
+The code for the LinkedIn guru looks like 
 
 ```python
 from langchain.chat_models import ChatOpenAI
