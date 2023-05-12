@@ -192,4 +192,4 @@ This paper provides a practical guide for practitioners and end-users working wi
 ▪️ Impact of spurious biases on LLMs and other essential considerations 
 
 🔗 GitHub: https://github.com/mooler0410/llmspracticalguide
-🔗 Arvix: https://arxiv.org/pdf/2304.13712v2.pdf
+🔗 arXiv: https://arxiv.org/pdf/2304.13712v2.pdf
