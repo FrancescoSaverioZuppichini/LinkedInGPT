@@ -6,12 +6,14 @@ load_dotenv()
 
 import json
 import random
+from functools import cache
 from pathlib import Path
 from typing import List
 
 import faiss
 import requests
 from bs4 import BeautifulSoup
+from db import Paper
 from langchain.agents import Tool
 from langchain.chat_models import ChatOpenAI
 from langchain.docstore import InMemoryDocstore
@@ -19,10 +21,8 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.experimental import AutoGPT
 from langchain.memory import ConversationBufferWindowMemory
 from langchain.vectorstores import FAISS
-from rich import print
-from functools import cache
-from db import Paper
 from linkedin.user import User
+from rich import print
 
 user = User()
 

@@ -9,7 +9,7 @@ from .base import Storage
 
 class SQLiteStorage(Storage):
     def __init__(self, name: str = "content.db"):
-        self.conn = sqlite3.connect("content.db")
+        self.conn = sqlite3.connect(name)
         self._init_table()
 
     def _init_table(self):

@@ -1,14 +1,16 @@
 import random
+from functools import partial
 from typing import Callable, List, Optional
 
 from langchain import LLMChain
 
 from src.actions import Action
 from src.content_providers import ContentProvider
+from src.logger import logger
 from src.storages import Storage
 from src.types import Content, GeneratedContent
+from pathlib import Path
 
-from src.logger import logger
 
 def random_content_selection_strategy(contents: List[Content]) -> Content:
     return random.choice(contents)
@@ -36,18 +38,25 @@ class Guru:
             if content_selection_strategy is None
             else content_selection_strategy
         )
+        # [NOTE] for now I just create this folder here
+        Path(".guru").mkdir(exist_ok=True)
 
-    def run(self):
-        contents = self.content_provider.get_contents()
-        list(map(lambda content: self.storage.store(content), contents))
+    def run(self, only_from_storage: bool = False):
+        if not only_from_storage:
+            contents = self.content_provider.get_contents()
+            list(map(lambda content: self.storage.store(content), contents))
         contents = self.storage.get_all(created=False)
         content = self.content_selection_strategy(contents)
-        generated_text = self.llm_chain.run({"content": content.__dict__, "bot_name": self.name})
+        generated_text = self.llm_chain.run(
+            {"content": content.__dict__, "bot_name": self.name}
+        )
         logger.info(f"Generated text for content:\n{generated_text}")
-        if self.confirmation(self.run):
+        if self.confirmation(partial(self.run, only_from_storage=True)):
             logger.info(f"Running action {self.action}")
             # [TODO] here I know in my setup what 'media' will be inside content because I will get it from paperswithcode
-            generated_content = GeneratedContent(generated_text, media_url=content.data['media'])
+            generated_content = GeneratedContent(
+                generated_text, media_url=content.data["media"]
+            )
             self.action(generated_content)
             content.created = True
             self.storage.update(content)

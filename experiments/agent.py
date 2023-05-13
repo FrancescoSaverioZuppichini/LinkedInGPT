@@ -11,6 +11,7 @@ from typing import List
 
 import requests
 from bs4 import BeautifulSoup
+from db import Paper
 from langchain.agents import Tool, initialize_agent, load_tools
 from langchain.chat_models import ChatOpenAI
 from langchain.experimental import AutoGPT
@@ -20,10 +21,8 @@ from langchain.tools.file_management.read import ReadFileTool
 from langchain.tools.file_management.write import WriteFileTool
 from langchain.utilities import (ArxivAPIWrapper, GoogleSearchAPIWrapper,
                                  TextRequestsWrapper)
-from rich import print
-
-from db import Paper
 from linkedin.user import User
+from rich import print
 
 user = User()
 
@@ -133,8 +132,8 @@ memory = ConversationBufferWindowMemory(
     memory_key="chat_history", k=10, return_messages=True
 )
 
-from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
 
 prompt = PromptTemplate(
     input_variables=["paper"],

@@ -7,16 +7,16 @@ load_dotenv()
 
 from pathlib import Path
 
+from db import insert_post
 from langchain.agents import Tool
 from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationBufferWindowMemory
-from rich import print
-
-from db import insert_post
 from linkedin.user import User
-from logger import logger
+from rich import print
 from tools.linkedIn import write_linkedin_post
 from tools.papers import get_a_trending_paper_for_a_post
+
+from logger import logger
 
 user = User()
 
