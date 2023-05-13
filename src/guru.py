@@ -41,6 +41,7 @@ class Guru:
         contents = self.content_provider.get_contents()
         list(map(lambda content: self.storage.store(content), contents))
         contents = self.storage.get_all(created=False)
+        logger.info(contents)
         content = self.content_selection_strategy(contents)
         generated_text = self.llm_chain.run({"content": content.__dict__, "bot_name": self.name})
         logger.info(f"Generated text for content:\n{generated_text}")
