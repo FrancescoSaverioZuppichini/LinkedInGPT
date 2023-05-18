@@ -65,12 +65,12 @@ def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Content]:
                 "github_link": row.select_one(".item-github-link a")["href"],
                 "uid": row.select_one("h1 a")["href"],
             }
-            logger.info(f"Founde paper = {paper_dict['title']}")
+            logger.info(f"Found paper = {paper_dict['title']}")
             paper_dict = paper_dict
             paper_info_dict = get_paper_info_from_papers_with_code(paper_dict["uid"])
-            image_file_path = Path(f".guru/{Path(paper_dict['uid']).stem}.jpeg")
+            image_file_path = Path(f".guru/{Path(paper_dict['uid']).name}.jpeg")
             if not image_file_path.exists():
-                logger.info(f"Creating two side image for {paper_info_dict['title']}")
+                logger.info(f"Creating two side image for {paper_dict['title']}")
                 paper_dict["media"] = create_image(
                     paper_info_dict["arxiv_link"], image_file_path=str(image_file_path)
                 )
@@ -85,6 +85,7 @@ def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Content]:
                     },
                 )
             )
+            logger.debug(paper_dict)
         else:
             logger.warning("Was not able to scrape the html for one row.")
     else:
