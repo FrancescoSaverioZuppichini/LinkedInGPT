@@ -1,5 +1,6 @@
 import random
 from functools import partial
+from pathlib import Path
 from typing import Callable, List, Optional
 
 from langchain import LLMChain
@@ -9,7 +10,6 @@ from src.content_providers import ContentProvider
 from src.logger import logger
 from src.storages import Storage
 from src.types import Content, GeneratedContent
-from pathlib import Path
 
 
 def random_content_selection_strategy(contents: List[Content]) -> Content:

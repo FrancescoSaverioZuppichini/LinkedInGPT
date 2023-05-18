@@ -1,11 +1,13 @@
 from pathlib import Path
 
+import requests
 from linkedin_python import User
 
+from src.logger import logger
 from src.types import GeneratedContent
 
 from .base import Action
-import requests
+
 
 class PostOnLinkedInAction(Action):
     def __init__(self) -> None:
@@ -19,9 +21,13 @@ class PostOnLinkedInAction(Action):
                 with open(file_path, "wb") as f:
                     f.write(requests.get(media_url).content)
                 media_url = file_path
+            logger.debug(
+                f"Creating LinkedIn post with text = {content.text} and media = {media_url}"
+            )
             self.user.create_post(
                 content.text,
                 [(media_url, "media")],
             )
         else:
+            logger.debug(f"Creating LinkedIn post with text = {content.text}")
             self.user.create_post(content.text)

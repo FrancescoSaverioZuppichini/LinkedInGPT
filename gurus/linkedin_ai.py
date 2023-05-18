@@ -33,7 +33,7 @@ guru = Guru(
     storage=SQLiteStorage(),
     action=PostOnLinkedInAction(),
     confirmation=input_confirmation,
-    llm_chain=chain
+    llm_chain=chain,
 )
 
 guru.run()

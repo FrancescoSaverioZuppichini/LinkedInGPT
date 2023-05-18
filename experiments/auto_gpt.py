@@ -95,6 +95,7 @@ def get_latest_papers(*args, **kwargs) -> List[Paper]:
 
     return results
 
+
 @cache
 def get_a_trending_paper(*args, **kwargs):
     papers = get_latest_papers()
