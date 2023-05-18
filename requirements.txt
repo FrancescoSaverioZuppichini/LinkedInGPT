@@ -3,3 +3,6 @@ python-dotenv
 beautifulsoup4
 langchain
 linkedin-python
+pdf2image
+Pillow
+opencv-python

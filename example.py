@@ -1,7 +1,9 @@
+import os
+
+from rich import print
+
 from src.linkedin.api import API
 from src.linkedin.user import User
-from rich import print
-import os
 
 os.environ[
     "LINKEDIN_TOKEN"

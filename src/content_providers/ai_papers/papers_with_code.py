@@ -1,3 +1,4 @@
+from pathlib import Path
 from random import choice
 from typing import Dict, List
 
@@ -6,6 +7,8 @@ from bs4 import BeautifulSoup
 
 from src.logger import logger
 from src.types import Content
+
+from .utils import create_image
 
 
 def get_paper_info_from_papers_with_code(uid: str, *args, **kwargs) -> Dict:
@@ -36,7 +39,7 @@ def get_paper_info_from_papers_with_code(uid: str, *args, **kwargs) -> Dict:
 
 
 def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Content]:
-    logger.info("Getting papers from https://paperswithcode.com/")
+    logger.info("Getting papers from https://paperswithcode.com/top-social")
     response = requests.get("https://paperswithcode.com/")
     results: List[Content] = []
     if response.status_code == 200:
@@ -62,7 +65,17 @@ def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Content]:
                 "github_link": row.select_one(".item-github-link a")["href"],
                 "uid": row.select_one("h1 a")["href"],
             }
+            logger.info(f"Found paper = {paper_dict['title']}")
             paper_dict = paper_dict
+            paper_info_dict = get_paper_info_from_papers_with_code(paper_dict["uid"])
+            image_file_path = Path(f".guru/{Path(paper_dict['uid']).name}.jpeg")
+            if not image_file_path.exists():
+                logger.info(f"Creating two side image for {paper_dict['title']}")
+                paper_dict["media"] = create_image(
+                    paper_info_dict["arxiv_link"], image_file_path=str(image_file_path)
+                )
+            else:
+                paper_dict["media"] = str(image_file_path)
             results.append(
                 Content(
                     paper_dict["uid"],
@@ -72,6 +85,7 @@ def get_latest_papers_from_papers_with_code(*args, **kwargs) -> List[Content]:
                     },
                 )
             )
+            logger.debug(paper_dict)
         else:
             logger.warning("Was not able to scrape the html for one row.")
     else:

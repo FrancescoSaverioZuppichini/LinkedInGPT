@@ -1,4 +1,5 @@
 import sys
+
 # lazy to make a package
 sys.path.append(".")
 from dotenv import load_dotenv
@@ -7,17 +8,15 @@ load_dotenv()
 
 from pathlib import Path
 
-from langchain.chat_models import ChatOpenAI
-
-
 from langchain.chains import LLMChain
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
 
-from src.guru import Guru
 from src.actions.linkedIn import PostOnLinkedInAction
-from src.storages import SQLiteStorage
-from src.content_providers import TrendingAIPapersProvider
 from src.confirmations.input_confirmation import input_confirmation
+from src.content_providers import TrendingAIPapersProvider
+from src.guru import Guru
+from src.storages import SQLiteStorage
 
 prompt = PromptTemplate(
     input_variables=["content", "bot_name"],
@@ -34,7 +33,7 @@ guru = Guru(
     storage=SQLiteStorage(),
     action=PostOnLinkedInAction(),
     confirmation=input_confirmation,
-    llm_chain=chain
+    llm_chain=chain,
 )
 
 guru.run()
