@@ -7,7 +7,7 @@ write me a informativa LinkedIn post.
 Please follow this templates
 
 ```
-<one sentence introduction, e.g. 🚨 New paper alert: ...><three emoji describint the paper>
+<one sentence introduction, e.g. 🚨 New paper alert: ...><three emoji describing the paper>
 
 
 <small paper summary, max two sentences>
@@ -21,7 +21,7 @@ Please follow this templates
 
 
 🔗 GitHub: <GITHUB_LINK>
-🔗 Arvix: <ARVIX_LINK>
+🔗 arXiv: <ARXIV_LINK>
 
 #ai #ds #ml #llms #opensource #datascience #machinelearning #programming #python #deeplearning #nlp
 
@@ -50,7 +50,7 @@ textual prompts to compose queries on the fly for inference as shown in Fig 1;
 segmentation.
 
 🔗 GitHub: https://github.com/ux-decoder/segment-everything-everywhere-all-at-once
-🔗 Arvix: https://arxiv.org/pdf/2304.06718v2.pdf
+🔗 arXiv: https://arxiv.org/pdf/2304.06718v2.pdf
 ```
 
 Add meaningful emoticons (emoji) to the post, just two or three, like in the examples. After you have successfully created one post you can stop.
